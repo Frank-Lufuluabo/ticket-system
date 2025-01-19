@@ -4,13 +4,14 @@ import Spinner from "@/components/Spinner";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useStorageUrl } from "@/lib/utils";
-import { useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { CalendarDays, MapPin, Ticket, Users } from "lucide-react";
 import EventCard from "@/components/EventCard";
 import JoinQueue from "@/components/JoinQueue";
+import { Button } from "@/components/ui/button";
 
 function EventPage() {
  const { user } = useUser();
