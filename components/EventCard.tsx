@@ -161,9 +161,10 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         </div>
       )}
-
+      {/* Event Details */}
       <div className={`p-6 ${imageUrl ? "relative" : ""}`}>
         <div className="flex justify-between items-start">
+          {/* Event Name and Owner Badge */}
           <div>
             <div className="flex flex-col items-start gap-2">
               {isEventOwner && (
@@ -185,8 +186,8 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
           <div className="flex flex-col items-end gap-2 ml-4">
             <span
               className={`px-4 py-1.5 font-semibold rounded-full ${isPastEvent
-                  ? "bg-gray-50 text-gray-500"
-                  : "bg-green-50 text-green-700"
+                ? "bg-gray-50 text-gray-500"
+                : "bg-green-50 text-green-700"
                 }`}
             >
               £{event.price.toFixed(2)}
@@ -199,6 +200,7 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
           </div>
         </div>
 
+        {/* Event Details */}
         <div className="mt-4 space-y-3">
           <div className="flex items-center text-gray-600">
             <MapPin className="w-4 h-4 mr-2" />
