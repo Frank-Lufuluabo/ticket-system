@@ -8,6 +8,7 @@ import { Ticket } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReleaseTicket from "./ReleaseTicket";
+import { createStripeCheckoutSession } from "@/actions/createStripeCheckoutSession";
 
 
 
@@ -54,7 +55,25 @@ function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
 
 
   // Create Stripe checkout...
-  const handlePurchase = async () => { };
+  const handlePurchase = async () => {
+
+    if (!user) return;
+
+    try {
+      setIsLoading(true);
+      const { sessionUrl } = await createStripeCheckoutSession({
+        eventId,
+      });
+
+      if (sessionUrl) {
+        router.push(sessionUrl);
+      }
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+    } finally {
+      setIsLoading(false);
+    }
+   };
 
   if (!user || !queuePosition || queuePosition.status !== "offered") {
     return null;
