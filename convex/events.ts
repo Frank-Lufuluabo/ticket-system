@@ -341,6 +341,7 @@ export const purchaseTicket = mutation({
   },
 });
 
+<<<<<<< HEAD
 // Get user's tickets with event information
 export const getUserTickets = query({
   args: { userId: v.string() },
@@ -363,6 +364,9 @@ export const getUserTickets = query({
     return ticketsWithEvents;
   },
 });
+=======
+
+>>>>>>> 6984c2c916dadd9a07f01115f93c1dd34a9489c5
 
 
 
