@@ -9,15 +9,6 @@
     "userId": "user_2bFMHkGxZPWVVyJ5QEJQxfsCkxB"
   },
   {
-    "name": "NBA Finals 2024 - Game 1",
-    "description": "Witness the opening game of the NBA Finals!",
-    "price": 899.99,
-    "totalTickets": 50,
-    "location": "Madison Square Garden, New York",
-    "eventDate": 1717891200000,
-    "userId": "user_2bFMHkGxZPWVVyJ5QEJQxfsCkxB"
-  },
-  {
     "name": "Hamilton - Broadway",
     "description": "Don't miss the award-winning musical phenomenon!",
     "price": 299.99,
@@ -31,7 +22,7 @@
     "description": "Join Coldplay for an unforgettable night of music!",
     "price": 150.00,
     "totalTickets": 200,
-    "location": "Cape Town Stadium, Cape Town",
+    "location": "Wembley Stadium, London",
     "eventDate": 1726012800000,
     "userId": "user_2dOPKmMyZRXXazL7SGLSzhsEmzD"
   },
@@ -86,7 +77,7 @@
     "description": "The eighth story in the Harry Potter series comes to life on stage",
     "price": 175.00,
     "totalTickets": 100,
-    "location": "Palace Theatre, Cape Town",
+    "location": "Palace Theatre, London",
     "eventDate": 1727222400000,
     "userId": "user_2iRXPsQAaVYYfAQ2XLQXemvJrzI"
   }

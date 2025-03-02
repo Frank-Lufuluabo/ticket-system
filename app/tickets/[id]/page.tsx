@@ -10,7 +10,7 @@ import Link from "next/link";
 import { ArrowLeft, Download, Share2 } from "lucide-react";
 import { useEffect } from "react";
 
-function MyTicket() {
+export default function TicketPage() {
   const params = useParams();
   const { user } = useUser();
   const ticket = useQuery(api.tickets.getTicketWithDetails, {
@@ -126,5 +126,3 @@ function MyTicket() {
     </div>
   );
 }
-
-export default MyTicket

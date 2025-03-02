@@ -1,32 +1,38 @@
 "use client";
 
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
-import { useStorageUrl } from "@/lib/utils";
-import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { CalendarDays, Check, CircleArrowRight, LoaderCircle, MapPin, PencilIcon, StarIcon, Ticket, XCircle } from "lucide-react";
+import { Id } from "@/convex/_generated/dataModel";
+import {
+  CalendarDays,
+  MapPin,
+  Ticket,
+  Check,
+  CircleArrowRight,
+  LoaderCircle,
+  XCircle,
+  PencilIcon,
+  StarIcon,
+} from "lucide-react";
+import { useUser } from "@clerk/nextjs";
 import PurchaseTicket from "./PurchaseTicket";
+import { useRouter } from "next/navigation";
+import { useStorageUrl } from "@/lib/utils";
+import Image from "next/image";
 
-
-function EventCard({ eventId }: { eventId: Id<"events"> }) {
+export default function EventCard({ eventId }: { eventId: Id<"events"> }) {
   const { user } = useUser();
   const router = useRouter();
   const event = useQuery(api.events.getById, { eventId });
   const availability = useQuery(api.events.getEventAvailability, { eventId });
-
   const userTicket = useQuery(api.tickets.getUserTicketForEvent, {
     eventId,
     userId: user?.id ?? "",
-  })
-
+  });
   const queuePosition = useQuery(api.waitingList.getQueuePosition, {
     eventId,
     userId: user?.id ?? "",
   });
-
   const imageUrl = useStorageUrl(event?.imageStorageId);
 
   if (!event || !availability) {
@@ -34,6 +40,7 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
   }
 
   const isPastEvent = event.eventDate < Date.now();
+
   const isEventOwner = user?.id === event?.userId;
 
   const renderQueuePosition = () => {
@@ -145,8 +152,9 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
   return (
     <div
       onClick={() => router.push(`/event/${eventId}`)}
-      className={`bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer overflow-hidden relative ${isPastEvent ? "opacity-75 hover:opacity-100" : ""
-        }`}
+      className={`bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer overflow-hidden relative ${
+        isPastEvent ? "opacity-75 hover:opacity-100" : ""
+      }`}
     >
       {/* Event Image */}
       {imageUrl && (
@@ -161,10 +169,9 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         </div>
       )}
-      {/* Event Details */}
+
       <div className={`p-6 ${imageUrl ? "relative" : ""}`}>
         <div className="flex justify-between items-start">
-          {/* Event Name and Owner Badge */}
           <div>
             <div className="flex flex-col items-start gap-2">
               {isEventOwner && (
@@ -185,12 +192,13 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
           {/* Price Tag */}
           <div className="flex flex-col items-end gap-2 ml-4">
             <span
-              className={`px-4 py-1.5 font-semibold rounded-full ${isPastEvent
-                ? "bg-gray-50 text-gray-500"
-                : "bg-green-50 text-green-700"
-                }`}
+              className={`px-4 py-1.5 font-semibold rounded-full ${
+                isPastEvent
+                  ? "bg-gray-50 text-gray-500"
+                  : "bg-green-50 text-green-700"
+              }`}
             >
-              £{event.price.toFixed(2)}
+              ${event.price.toFixed(2)}
             </span>
             {availability.purchasedCount >= availability.totalTickets && (
               <span className="px-4 py-1.5 bg-red-50 text-red-700 font-semibold rounded-full text-sm">
@@ -200,7 +208,6 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
           </div>
         </div>
 
-        {/* Event Details */}
         <div className="mt-4 space-y-3">
           <div className="flex items-center text-gray-600">
             <MapPin className="w-4 h-4 mr-2" />
@@ -242,7 +249,3 @@ function EventCard({ eventId }: { eventId: Id<"events"> }) {
     </div>
   );
 }
-
-export default EventCard;
-
-

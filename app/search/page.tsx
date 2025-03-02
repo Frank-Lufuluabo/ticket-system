@@ -4,10 +4,10 @@ import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 import { useSearchParams } from "next/navigation";
 import EventCard from "@/components/EventCard";
-import { Search as SearchIcon } from "lucide-react";
+import { Search } from "lucide-react";
 import Spinner from "@/components/Spinner";
 
-function Search() {
+export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const searchResults = useQuery(api.events.search, { searchTerm: query });
@@ -33,7 +33,7 @@ function Search() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Search Results Header */}
         <div className="flex items-center gap-3 mb-8">
-          <SearchIcon className="w-6 h-6 text-gray-400" />
+          <Search className="w-6 h-6 text-gray-400" />
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
               Search Results for &quot;{query}&quot;
@@ -47,7 +47,7 @@ function Search() {
         {/* No Results State */}
         {searchResults.length === 0 && (
           <div className="text-center py-12 bg-white rounded-xl shadow-sm">
-            <SearchIcon className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+            <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900">
               No events found
             </h3>
@@ -88,5 +88,3 @@ function Search() {
     </div>
   );
 }
-
-export default Search;

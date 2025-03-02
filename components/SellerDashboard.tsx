@@ -1,13 +1,10 @@
-"use client"
-
+"use client";
 
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
-
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-
 import { CalendarDays, Cog, Plus } from "lucide-react";
 import Link from "next/link";
 import Spinner from "./Spinner";
@@ -16,7 +13,7 @@ import { createStripeConnectLoginLink } from "@/actions/createStripeConnectLogin
 import { createStripeConnectCustomer } from "@/actions/createStripeConnectCustomer";
 import { createStripeConnectAccountLink } from "@/actions/createStripeConnectAccountLink";
 
-function SellerDashboard() {
+export default function SellerDashboard() {
   const [accountCreatePending, setAccountCreatePending] = useState(false);
   const [accountLinkCreatePending, setAccountLinkCreatePending] =
     useState(false);
@@ -157,10 +154,11 @@ function SellerDashboard() {
                   </h3>
                   <div className="mt-2 flex items-center">
                     <div
-                      className={`w-3 h-3 rounded-full mr-2 ${accountStatus.isActive
+                      className={`w-3 h-3 rounded-full mr-2 ${
+                        accountStatus.isActive
                           ? "bg-green-500"
                           : "bg-yellow-500"
-                        }`}
+                      }`}
                     />
                     <span className="text-lg font-semibold">
                       {accountStatus.isActive ? "Active" : "Pending Setup"}
@@ -176,10 +174,11 @@ function SellerDashboard() {
                   <div className="mt-2 space-y-1">
                     <div className="flex items-center">
                       <svg
-                        className={`w-5 h-5 ${accountStatus.chargesEnabled
+                        className={`w-5 h-5 ${
+                          accountStatus.chargesEnabled
                             ? "text-green-500"
                             : "text-gray-400"
-                          }`}
+                        }`}
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -197,10 +196,11 @@ function SellerDashboard() {
                     </div>
                     <div className="flex items-center">
                       <svg
-                        className={`w-5 h-5 ${accountStatus.payoutsEnabled
+                        className={`w-5 h-5 ${
+                          accountStatus.payoutsEnabled
                             ? "text-green-500"
                             : "text-gray-400"
-                          }`}
+                        }`}
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -322,10 +322,6 @@ function SellerDashboard() {
           )}
         </div>
       </div>
-
     </div>
-
-  )
+  );
 }
-
-export default SellerDashboard;

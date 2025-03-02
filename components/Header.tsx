@@ -38,7 +38,6 @@ function Header() {
           <SearchBar />
         </div>
 
-        {/* Desktop Action Buttons */}
         <div className="hidden lg:block ml-auto">
           <SignedIn>
             <div className="flex items-center gap-3">

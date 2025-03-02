@@ -6,7 +6,7 @@ import { useUser } from "@clerk/nextjs";
 import TicketCard from "@/components/TicketCard";
 import { Ticket } from "lucide-react";
 
-function Tickets() {
+export default function MyTicketsPage() {
   const { user } = useUser();
   const tickets = useQuery(api.events.getUserTickets, {
     userId: user?.id ?? "",
@@ -98,5 +98,3 @@ function Tickets() {
     </div>
   );
 }
-
-export default Tickets;

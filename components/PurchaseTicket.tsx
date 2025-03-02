@@ -1,18 +1,16 @@
 "use client";
 
-import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { Ticket } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { api } from "@/convex/_generated/api";
+import { useQuery } from "convex/react";
 import ReleaseTicket from "./ReleaseTicket";
+import { Ticket } from "lucide-react";
 import { createStripeCheckoutSession } from "@/actions/createStripeCheckoutSession";
 
-
-
-function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
+export default function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
   const router = useRouter();
   const { user } = useUser();
   const queuePosition = useQuery(api.waitingList.getQueuePosition, {
@@ -39,7 +37,8 @@ function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
 
       if (minutes > 0) {
         setTimeRemaining(
-          `${minutes} minute${minutes === 1 ? "" : "s"} ${seconds} second${seconds === 1 ? "" : "s"
+          `${minutes} minute${minutes === 1 ? "" : "s"} ${seconds} second${
+            seconds === 1 ? "" : "s"
           }`
         );
       } else {
@@ -50,13 +49,9 @@ function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
     calculateTimeRemaining();
     const interval = setInterval(calculateTimeRemaining, 1000);
     return () => clearInterval(interval);
-
   }, [offerExpiresAt, isExpired]);
 
-
-  // Create Stripe checkout...
   const handlePurchase = async () => {
-
     if (!user) return;
 
     try {
@@ -73,14 +68,13 @@ function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
     } finally {
       setIsLoading(false);
     }
-   };
+  };
 
   if (!user || !queuePosition || queuePosition.status !== "offered") {
     return null;
   }
 
   return (
-
     <div className="bg-white p-6 rounded-xl shadow-lg border border-amber-200">
       <div className="space-y-4">
         <div className="bg-white rounded-lg p-6 border border-gray-200">
@@ -105,6 +99,7 @@ function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
             </div>
           </div>
         </div>
+
         <button
           onClick={handlePurchase}
           disabled={isExpired || isLoading}
@@ -118,11 +113,7 @@ function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
         <div className="mt-4">
           <ReleaseTicket eventId={eventId} waitingListId={queuePosition._id} />
         </div>
-
       </div>
     </div>
   );
 }
-
-export default PurchaseTicket
-

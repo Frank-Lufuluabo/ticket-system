@@ -6,7 +6,7 @@ import { useMutation } from "convex/react";
 import { useState } from "react";
 import { XCircle } from "lucide-react";
 
-function ReleaseTicket({
+export default function ReleaseTicket({
   eventId,
   waitingListId,
 }: {
@@ -43,5 +43,3 @@ function ReleaseTicket({
     </button>
   );
 }
-
-export default ReleaseTicket

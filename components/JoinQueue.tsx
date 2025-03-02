@@ -1,21 +1,20 @@
-"use client"
+"use client";
 
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
-import { useToast } from "@/hooks/use-toast";
-import { ConvexError } from "convex/values";
+import { Id } from "@/convex/_generated/dataModel";
+import { WAITING_LIST_STATUS } from "@/convex/constants";
 import Spinner from "./Spinner";
 import { Clock, OctagonXIcon } from "lucide-react";
-import { WAITING_LIST_STATUS } from "@/convex/constants";
+import { useToast } from "@/hooks/use-toast";
+import { ConvexError } from "convex/values";
 
-function JoinQueue({
+export default function JoinQueue({
   eventId,
   userId,
 }: {
   eventId: Id<"events">;
   userId: string;
-
 }) {
   const { toast } = useToast();
   const joinWaitingList = useMutation(api.events.joinWaitingList);
@@ -27,7 +26,6 @@ function JoinQueue({
     eventId,
     userId,
   });
-
   const availability = useQuery(api.events.getEventAvailability, { eventId });
   const event = useQuery(api.events.getById, { eventId });
 
@@ -38,10 +36,6 @@ function JoinQueue({
       const result = await joinWaitingList({ eventId, userId });
       if (result.success) {
         console.log("Successfully joined waiting list");
-        toast({
-          title: result.message,
-          duration: 5000,
-        });
       }
     } catch (error) {
       if (
@@ -75,12 +69,13 @@ function JoinQueue({
 
   const isPastEvent = event.eventDate < Date.now();
 
-  return <div>
-    {(!queuePosition ||
-      queuePosition.status === WAITING_LIST_STATUS.EXPIRED ||
-      (queuePosition.status === WAITING_LIST_STATUS.OFFERED &&
-        queuePosition.offerExpiresAt &&
-        queuePosition.offerExpiresAt <= Date.now())) && (
+  return (
+    <div>
+      {(!queuePosition ||
+        queuePosition.status === WAITING_LIST_STATUS.EXPIRED ||
+        (queuePosition.status === WAITING_LIST_STATUS.OFFERED &&
+          queuePosition.offerExpiresAt &&
+          queuePosition.offerExpiresAt <= Date.now())) && (
         <>
           {isEventOwner ? (
             <div className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gray-100 text-gray-700 rounded-lg">
@@ -109,7 +104,6 @@ function JoinQueue({
           )}
         </>
       )}
-  </div>;
+    </div>
+  );
 }
-
-export default JoinQueue;

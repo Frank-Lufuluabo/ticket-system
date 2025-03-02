@@ -14,10 +14,9 @@ import {
 import Link from "next/link";
 import { useStorageUrl } from "@/lib/utils";
 import Image from "next/image";
-
+import CancelEventButton from "./CancelEventButton";
 import { Doc } from "@/convex/_generated/dataModel";
 import { Metrics } from "@/convex/events";
-import CancelEventButton from "./CancelEventButton";
 
 export default function SellerEventList() {
   const { user } = useUser();
@@ -159,7 +158,7 @@ function SellerEventCard({
                   </span>
                 </div>
                 <p className="text-2xl font-semibold text-gray-900">
-                  £
+                  $
                   {event.is_cancelled
                     ? event.metrics.refundedTickets * event.price
                     : event.metrics.revenue}
